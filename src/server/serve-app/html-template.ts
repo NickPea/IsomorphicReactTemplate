@@ -3,7 +3,7 @@
 export default (
 	render?,
 	state?,
-	bundle?,
+	bundlePath?,
 	head = "<title>App</title>",
 	lang = "en"
 ) => {
@@ -20,8 +20,13 @@ export default (
 			<div id="root">
 				${render}
 			</div>
-			${state||''}
-			${bundle||''}
+			
+			<script>
+			${state||""}
+			</script>
+
+			<script src="${bundlePath||null}"></script>
+			
 		</body>
 		</html>
     `;
