@@ -1,16 +1,15 @@
 //
-import React from 'react'
-
+import React, { Fragment } from "react";
 import HomePage from "./pages/home";
 import FeaturePage from "./pages/feature";
 import { Switch, Route } from "react-router-dom/";
 
-const routes = [
-	{ path: "/feature", component: FeaturePage },
-	{ path: "/", component: HomePage },
+export const routesArray = [
+	{ path: "/feature", component: <FeaturePage /> },
+	{ path: "/*", component: <HomePage /> },
 ];
 
-const routeMap = routes.map((route, index) => {
+const routeMap = routesArray.map((route, index) => {
 	return (
 		<Route key={index} path={route.path}>
 			{route.component}
@@ -19,5 +18,7 @@ const routeMap = routes.map((route, index) => {
 });
 
 export default () => {
-	return <Switch>${routeMap}</Switch>;
+	return (
+			<Switch>{routeMap}</Switch>
+	);
 };

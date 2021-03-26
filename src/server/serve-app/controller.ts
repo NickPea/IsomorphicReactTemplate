@@ -1,6 +1,6 @@
 //
 
-import RenderService from "./render-service";
+import RenderService from "./ssr-service";
 
 export default class {
 	//

@@ -2,7 +2,7 @@
 
 export default (
 	render?,
-	state?,
+	initialState?,
 	bundlePath?,
 	head = "<title>App</title>",
 	lang = "en"
@@ -22,7 +22,7 @@ export default (
 			</div>
 			
 			<script>
-			${state||""}
+				window.__INITIAL_SERVER_STATE__ = JSON.parse('${JSON.stringify(initialState)||null}');
 			</script>
 
 			<script src="${bundlePath||null}"></script>

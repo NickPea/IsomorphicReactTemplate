@@ -1,8 +1,23 @@
 const path = require("path");
 const webpack = require("webpack");
 
-const serverConfig = {
+const commonConfig = {
   mode: "development",
+
+  devtool: "inline-source-map",
+
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
+
+  devServer: {
+    open: true,
+    host: "localhost",
+  },
+}
+
+const serverConfig = {
+  ...commonConfig,
   target: "node",
 
   entry: {
@@ -38,19 +53,11 @@ const serverConfig = {
     ],
   },
 
-  resolve: {
-    extensions: [".tsx", ".ts", ".js"],
-  },
-
-  devServer: {
-    open: true,
-    host: "localhost",
-  },
 };
 
 
 const clientConfig = {
-  mode: "development",
+  ...commonConfig,
   target: "web",
 
   entry: {
@@ -85,15 +92,6 @@ const clientConfig = {
       },
     ],
   },
-
-  resolve: {
-    extensions: [".tsx", ".ts", ".js"],
-  },
-
-  devServer: {
-    open: true,
-    host: "localhost",
-  },
 };
 
-module.exports = [serverConfig, clientConfig]
+module.exports = [clientConfig, serverConfig]
