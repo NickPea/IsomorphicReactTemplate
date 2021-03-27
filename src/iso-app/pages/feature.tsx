@@ -2,10 +2,18 @@
 
 import React from "react";
 
-export default () => {
+const FeaturePage = () => {
 	return (
 		<div>
 			<div>Feature Page</div>
 		</div>
 	);
 };
+
+FeaturePage.getPrefetchFunctions = () => {
+	return [
+		()=>{}
+	];
+};
+
+export default FeaturePage;

@@ -1,7 +1,7 @@
 //
 
 import React, { Fragment } from "react";
-import AppRoutes from "./routes";
+import AppRoutes from "./router";
 
 export default () => {
 	return (
