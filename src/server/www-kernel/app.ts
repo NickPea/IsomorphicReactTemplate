@@ -2,12 +2,15 @@
 
 import express from "express";
 import path from "path";
-
 //
 import morgan from "morgan";
-
 //
-import ServeAppController from "../serve-app/controller";
+import ApiRouter from "../serve-api/api-router";
+import IsoAppRouter from "../serve-iso-app/app-router";
+
+// ------------------------------------------------------ //
+
+import "../loaders";
 
 export const app = express();
 
@@ -18,4 +21,5 @@ app.use(express.static(path.join(__dirname, "./")));
 app.use(morgan("tiny"));
 
 //
-app.use("/", ServeAppController.getApp);
+app.use(ApiRouter);
+app.use(IsoAppRouter);
