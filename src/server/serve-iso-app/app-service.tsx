@@ -7,10 +7,10 @@ import { Provider } from "react-redux";
 import IsoApp from "../../iso-app/app";
 import { createIsoStore } from "../../iso-app/state/store";
 import htmlTemplate from "./html-template";
-import { routeList } from "../../iso-app/router";
 import { merge } from "lodash";
 import { Store } from "redux";
 import { JssProvider, SheetsRegistry, createGenerateId } from "react-jss";
+import routeList from "../../iso-app/routing/app-routes";
 
 //
 

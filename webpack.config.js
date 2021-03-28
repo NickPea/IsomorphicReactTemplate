@@ -9,11 +9,6 @@ const commonConfig = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-
-  devServer: {
-    open: true,
-    host: "localhost",
-  },
 }
 
 const serverConfig = {
@@ -36,7 +31,6 @@ const serverConfig = {
       },
       {
         test: /.css$/,
-
         use: [
           {
             loader: "style-loader",
@@ -50,9 +44,12 @@ const serverConfig = {
           },
         ],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      }
     ],
   },
-
 };
 
 
@@ -90,6 +87,10 @@ const clientConfig = {
           },
         ],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      }
     ],
   },
 };

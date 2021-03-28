@@ -2,7 +2,7 @@
 
 import React from "react";
 import { createUseStyles } from "react-jss";
-import { Link } from "react-router-dom";
+import RouterNavigation from "../routing/RouterNavigation";
 
 const useStyles = createUseStyles((theme) => ({
 	monkey: {
@@ -17,16 +17,15 @@ const MockPage = () => {
 
 	return (
 		<div>
+			<RouterNavigation />
 			<div>Feature Page</div>
-			<div className={jssClasses.monkey} >I'mma stylin Up in 'ere!</div>
-			<Link to='/'>Home</Link>
-			<Link to='/feature'>Feature</Link>
+			<div className={jssClasses.monkey}>I'mma stylin Up in 'ere!</div>
 		</div>
 	);
 };
 
 MockPage.getPrefetchFunctions = () => {
-	return [() => {}];
+	return [];
 };
 
 export default MockPage;

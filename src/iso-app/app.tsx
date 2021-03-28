@@ -1,12 +1,12 @@
 //
 
 import React, { Fragment } from "react";
-import AppRoutes from "./router";
+import RouterSwitch from "./routing/RouterSwitch";
 
 export default () => {
 	return (
 		<Fragment>
-			<AppRoutes />
+			<RouterSwitch />
 		</Fragment>
 	);
 };

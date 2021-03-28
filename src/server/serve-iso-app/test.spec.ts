@@ -1,8 +1,7 @@
-//
+// //
 
-import AppService from "./app-service";
-import {routeList} from '../../iso-app/router'
-
+// import AppService from "./app-service";
+// import routeList from "../../iso-app/routing/route-list";
 
 // test("AppService to reduce all prefetch functions into initial state", async () => {
 // 	expect(
