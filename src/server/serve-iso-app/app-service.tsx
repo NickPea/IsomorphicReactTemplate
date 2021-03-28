@@ -2,15 +2,16 @@
 
 import React, { ReactElement } from "react";
 import reactDomServer from "react-dom/server";
-import { StaticRouter as Router, matchPath, match } from "react-router-dom";
+import { StaticRouter, matchPath, match } from "react-router-dom";
 import { Provider } from "react-redux";
 import IsoApp from "../../iso-app/app";
 import { createIsoStore } from "../../iso-app/state/store";
 import htmlTemplate from "./html-template";
 import { routeList } from "../../iso-app/router";
-import axios from "axios";
-import { cloneDeep, merge } from "lodash";
+import { merge } from "lodash";
 import { Store } from "redux";
+import { JssProvider, SheetsRegistry, createGenerateId } from "react-jss";
+
 //
 
 export default class {
@@ -20,23 +21,39 @@ export default class {
 	static initialServerState = { data: {}, app: {}, ui: {} };
 
 	//render server iso-app with initialized store and static router wrappers
-	static renderServerAppToString(store: Store, requestUrl: string): string {
-		return reactDomServer.renderToString(
-			<Provider store={store}>
-				<Router location={requestUrl}>
-					<IsoApp />
-				</Router>
-			</Provider>
+	static renderServerAppAndStylesToString(
+		store: Store,
+		requestUrl: string
+	): [string, string] {
+		//
+
+		//jss setup
+		const sheets = new SheetsRegistry();
+		const generateId = createGenerateId();
+
+		const appString = reactDomServer.renderToString(
+			<JssProvider registry={sheets} generateId={generateId}>
+				<Provider store={store}>
+					<StaticRouter location={requestUrl}>
+						<IsoApp />
+					</StaticRouter>
+				</Provider>
+			</JssProvider>
 		);
+
+		const stylesString = sheets.toString();
+
+		return [appString, stylesString];
 	}
 
 	//insert app string into html template
 	static InsertIntoHtmlTemplate(
-		serverAppString: string,
-		clientAppState: { data: any; app: any; ui: any },
-		clientBundlePath: string
+		serverAppString?: string,
+		serverStylesString?: string,
+		clientAppState?: { data: any; app: any; ui: any },
+		clientBundlePath?: string
 	) {
-		return htmlTemplate(serverAppString, clientAppState, clientBundlePath);
+		return htmlTemplate(serverAppString, serverStylesString, clientAppState, clientBundlePath);
 	}
 
 	static matchReactRouterPaths(
@@ -118,11 +135,12 @@ export default class {
 		const store = createIsoStore(this.initialServerState);
 
 		//render server app to string based on state and reqest path
-		const serverAppString = this.renderServerAppToString(store, requestPath);
+		const [serverAppString, serverStylesString] = this.renderServerAppAndStylesToString(store, requestPath);
 
 		//wrap render...etc in html for final response
 		const htmlResponseWrapper = this.InsertIntoHtmlTemplate(
 			serverAppString,
+			serverStylesString,
 			this.initialServerState,
 			this.clientBundlePath
 		);

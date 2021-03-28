@@ -2,6 +2,7 @@
 
 import React from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import ApiService from "../../server/serve-api/api-service";
 
 interface PageElement {
@@ -16,6 +17,8 @@ const HomePage: PageElement = () => {
 		<div>
 			<div>Home Page</div>
 			<div>State: {JSON.stringify(state)}</div>
+			<Link to='/'>Home</Link>
+			<Link to='/feature'>Feature</Link>
 		</div>
 	);
 };
